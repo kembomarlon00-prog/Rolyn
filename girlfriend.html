@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Question For You 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+    background-color: #fff0f5;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(255,182,193,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(255,105,180,0.2) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg opacity='0.18'%3E%3Cellipse cx='30' cy='28' rx='10' ry='14' fill='%23e75480' transform='rotate(-30 30 28)'/%3E%3Cellipse cx='46' cy='20' rx='10' ry='14' fill='%23e75480' transform='rotate(30 46 20)'/%3E%3Cellipse cx='37' cy='32' rx='11' ry='8' fill='%23e75480'/%3E%3Cellipse cx='130' cy='80' rx='9' ry='13' fill='%23c2185b' transform='rotate(-30 130 80)'/%3E%3Cellipse cx='145' cy='73' rx='9' ry='13' fill='%23c2185b' transform='rotate(30 145 73)'/%3E%3Cellipse cx='137' cy='86' rx='10' ry='7' fill='%23c2185b'/%3E%3Cellipse cx='70' cy='155' rx='8' ry='12' fill='%23ad1457' transform='rotate(-30 70 155)'/%3E%3Cellipse cx='84' cy='148' rx='8' ry='12' fill='%23ad1457' transform='rotate(30 84 148)'/%3E%3Cellipse cx='77' cy='161' rx='9' ry='6' fill='%23ad1457'/%3E%3Cellipse cx='170' cy='170' rx='7' ry='10' fill='%23e91e8c' transform='rotate(-30 170 170)'/%3E%3Cellipse cx='182' cy='163' rx='7' ry='10' fill='%23e91e8c' transform='rotate(30 182 163)'/%3E%3Cellipse cx='176' cy='175' rx='8' ry='6' fill='%23e91e8c'/%3E%3Cellipse cx='10' cy='120' rx='6' ry='9' fill='%23f48fb1' transform='rotate(-30 10 120)'/%3E%3Cellipse cx='21' cy='114' rx='6' ry='9' fill='%23f48fb1' transform='rotate(30 21 114)'/%3E%3Cellipse cx='15' cy='125' rx='7' ry='5' fill='%23f48fb1'/%3E%3Cellipse cx='100' cy='10' rx='7' ry='11' fill='%23e91e63' transform='rotate(-30 100 10)'/%3E%3Cellipse cx='113' cy='4' rx='7' ry='11' fill='%23e91e63' transform='rotate(30 113 4)'/%3E%3Cellipse cx='106' cy='16' rx='8' ry='6' fill='%23e91e63'/%3E%3Cellipse cx='170' cy='30' rx='5' ry='8' fill='%23f06292' transform='rotate(-30 170 30)'/%3E%3Cellipse cx='180' cy='24' rx='5' ry='8' fill='%23f06292' transform='rotate(30 180 24)'/%3E%3Cellipse cx='175' cy='35' rx='6' ry='4' fill='%23f06292'/%3E%3Cellipse cx='50' cy='185' rx='6' ry='9' fill='%23ba2d65' transform='rotate(-30 50 185)'/%3E%3Cellipse cx='62' cy='178' rx='6' ry='9' fill='%23ba2d65' transform='rotate(30 62 178)'/%3E%3Cellipse cx='56' cy='190' rx='7' ry='5' fill='%23ba2d65'/%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(8px);
+    border-radius: 28px;
+    padding: 52px 64px 48px;
+    max-width: 560px;
+    width: 92%;
+    text-align: center;
+    box-shadow: 0 8px 48px rgba(220,80,120,0.18);
+    position: relative;
+    z-index: 10;
+    animation: cardIn 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(40px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn 0.5s ease both; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hearts-deco {
+    font-size: 2rem;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 5vw, 2.7rem);
+    color: #b5174e;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    color: #b5174e;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  .sub {
+    font-size: 1rem;
+    color: #c06080;
+    margin-bottom: 36px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  /* ── SHARED BUTTON STYLE ── */
+  .btn {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    padding: 14px 38px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(135deg, #e91e8c, #f06292);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(233,30,140,0.32);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 28px rgba(233,30,140,0.48);
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  /* ── BUTTON ROW ── */
+  .buttons {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  /* The No button is fixed/floating so it can flee anywhere */
+  #noBtn {
+    position: fixed;
+    z-index: 999;
+    white-space: nowrap;
+    transition: left 0.3s cubic-bezier(0.34,1.5,0.64,1), top 0.3s cubic-bezier(0.34,1.5,0.64,1);
+  }
+
+  /* Invisible placeholder that holds the gap in the button row */
+  .no-placeholder {
+    display: inline-block;
+    padding: 14px 38px;
+    font-size: 1.1rem;
+    visibility: hidden;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* ── DATE CHOICE CARDS ── */
+  .choice-grid {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .choice-card {
+    background: #fff0f7;
+    border: 1.5px solid #f0b8d0;
+    border-radius: 20px;
+    padding: 28px 30px 22px;
+    cursor: pointer;
+    flex: 1 1 160px;
+    max-width: 200px;
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    text-align: center;
+  }
+
+  .choice-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(220,80,120,0.2);
+    border-color: #e91e8c;
+  }
+
+  .choice-card .icon { font-size: 2.4rem; margin-bottom: 10px; }
+  .choice-card .label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #b5174e;
+    font-style: italic;
+  }
+  .choice-card .desc {
+    font-size: 0.82rem;
+    color: #c06080;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ── CALENDAR ── */
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .cal-nav button {
+    background: none;
+    border: 1.5px solid #f0b8d0;
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    font-size: 1.1rem;
+    color: #b5174e;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .cal-nav button:hover { background: #fce4ec; }
+
+  .cal-month-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: #b5174e;
+    font-style: italic;
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 18px;
+  }
+
+  .cal-day-name {
+    font-size: 0.7rem;
+    color: #c06080;
+    text-align: center;
+    padding: 4px 0 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    color: #7a3050;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+  }
+
+  .cal-day:hover:not(.empty):not(.past) { background: #fce4ec; }
+  .cal-day.empty { cursor: default; }
+  .cal-day.past  { color: #d4aabb; cursor: default; }
+  .cal-day.today { background: #fce4ec; font-weight: 600; }
+  .cal-day.selected { background: linear-gradient(135deg,#e91e8c,#f06292); color: #fff; font-weight: 600; }
+
+  /* ── ACTIVITY CHOICE ── */
+  .activity-grid {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  /* ── CONFIRM SCREEN ── */
+  .confirm-icon { font-size: 3.5rem; margin-bottom: 16px; }
+
+  /* ── CONFETTI ── */
+  #confetti-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     SCREEN 1 — The Question
+════════════════════════════════ -->
+<div class="card">
+
+  <div id="s1" class="screen active">
+    <div class="hearts-deco">🌸 💕 🌸</div>
+    <h1>Will you be my girlfriend?</h1>
+    <p class="sub">Every love story is beautiful,<br>but I want ours to be my favourite. 🌷</p>
+    <div class="buttons">
+      <button class="btn" id="yesBtn">Yes 💖</button>
+      <span class="no-placeholder" id="noPlaceholder">No 🙅‍♀️</span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SCREEN 2 — Yay + Vibes
+  ════════════════════════════════ -->
+  <div id="s2" class="screen">
+    <div class="hearts-deco">🎉 💗 🎉</div>
+    <h2>You just made everything better!</h2>
+    <p class="sub">So… how are you feeling tonight?<br>What kind of date sounds like heaven to you? ✨</p>
+    <div class="choice-grid">
+      <div class="choice-card" onclick="chooseDateType('dinner')">
+        <div class="icon">🍽️</div>
+        <div class="label">Dinner Date</div>
+        <div class="desc">Candlelight, good food &amp; even better conversation</div>
+      </div>
+      <div class="choice-card" onclick="chooseDateType('activity')">
+        <div class="icon">🎮</div>
+        <div class="label">Activity Date</div>
+        <div class="desc">A little friendly competition and lots of laughs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SCREEN 3 — Calendar
+  ════════════════════════════════ -->
+  <div id="s3" class="screen">
+    <h2 id="s3-title">Pick a date for dinner 🍽️</h2>
+    <p class="sub" style="margin-bottom:20px;">What day works best for you?</p>
+    <div class="cal-nav">
+      <button id="calPrev">&#8249;</button>
+      <span class="cal-month-label" id="calLabel"></span>
+      <button id="calNext">&#8250;</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <button class="btn" id="calConfirm" style="opacity:0.4;pointer-events:none;margin-top:4px;">
+      Confirm Date 💕
+    </button>
+  </div>
+
+  <!-- ════════════════════════════════
+       SCREEN 4 — Activity Choice (only if activity picked)
+  ════════════════════════════════ -->
+  <div id="s4" class="screen">
+    <h2>What are we doing? 🎳</h2>
+    <p class="sub">Pick your favourite and I'll make it happen 💪</p>
+    <div class="activity-grid">
+      <div class="choice-card" onclick="chooseActivity('bowling')">
+        <div class="icon">🎳</div>
+        <div class="label">Bowling</div>
+        <div class="desc">Strikes, spares &amp; a little trash talk 😄</div>
+      </div>
+      <div class="choice-card" onclick="chooseActivity('puttputt')">
+        <div class="icon">⛳</div>
+        <div class="label">Putt Putt</div>
+        <div class="desc">Mini golf, big fun, cute competition</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════
+       SCREEN 5 — All confirmed
+  ════════════════════════════════ -->
+  <div id="s5" class="screen">
+    <div class="confirm-icon" id="confirmIcon">💖</div>
+    <h2 id="confirmTitle">It's a date!</h2>
+    <p class="sub" id="confirmMsg"></p>
+  </div>
+
+</div><!-- end .card -->
+
+<!-- Floating No button -->
+<button class="btn" id="noBtn">No 🙅‍♀️</button>
+
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+  /* ─── State ─── */
+  let dateType = '';
+  let selectedActivity = '';
+  let selectedDate = null;
+  let calYear, calMonth;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  calYear  = today.getFullYear();
+  calMonth = today.getMonth();
+
+  /* ─── Elements ─── */
+  const noBtn      = document.getElementById('noBtn');
+  const noPH       = document.getElementById('noPlaceholder');
+  const yesBtn     = document.getElementById('yesBtn');
+  const canvas     = document.getElementById('confetti-canvas');
+  const ctx        = canvas.getContext('2d');
+
+  /* ─── Sync No button to placeholder ─── */
+  function syncNo() {
+    const r = noPH.getBoundingClientRect();
+    noBtn.style.left  = r.left + 'px';
+    noBtn.style.top   = r.top  + 'px';
+    noBtn.style.width = r.width + 'px';
+  }
+
+  noBtn.style.transition = 'none';
+  syncNo();
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    noBtn.style.transition = 'left 0.3s cubic-bezier(0.34,1.5,0.64,1), top 0.3s cubic-bezier(0.34,1.5,0.64,1)';
+  }));
+
+  window.addEventListener('resize', () => {
+    noBtn.style.transition = 'none';
+    syncNo();
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      noBtn.style.transition = 'left 0.3s cubic-bezier(0.34,1.5,0.64,1), top 0.3s cubic-bezier(0.34,1.5,0.64,1)';
+    }));
+  });
+
+  /* ─── Flee logic ─── */
+  function flee() {
+    const margin = 20;
+    const bw = noBtn.offsetWidth, bh = noBtn.offsetHeight;
+    const maxX = window.innerWidth  - bw - margin;
+    const maxY = window.innerHeight - bh - margin;
+    const cx = parseFloat(noBtn.style.left) + bw / 2;
+    const cy = parseFloat(noBtn.style.top)  + bh / 2;
+    let nx, ny, tries = 0;
+    do {
+      nx = margin + Math.random() * maxX;
+      ny = margin + Math.random() * maxY;
+      tries++;
+    } while (Math.hypot(nx - cx, ny - cy) < 220 && tries < 40);
+    noBtn.style.left = nx + 'px';
+    noBtn.style.top  = ny + 'px';
+  }
+
+  noBtn.addEventListener('mouseover', flee);
+  noBtn.addEventListener('touchstart', e => { e.preventDefault(); flee(); }, { passive: false });
+
+  /* ─── Screen switching ─── */
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  /* ─── YES clicked ─── */
+  yesBtn.addEventListener('click', () => {
+    noBtn.style.display = 'none';
+    launchConfetti();
+    setTimeout(() => { showScreen('s2'); }, 1800);
+  });
+
+  /* ─── Date type chosen ─── */
+  function chooseDateType(type) {
+    dateType = type;
+    document.getElementById('s3-title').textContent =
+      type === 'dinner' ? 'Pick a date for dinner 🍽️' : 'Pick a date for our activity 🎳';
+    showScreen('s3');
+    renderCalendar();
+  }
+
+  /* ─── Calendar ─── */
+  const MONTHS = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+  const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  function renderCalendar() {
+    const label = document.getElementById('calLabel');
+    const grid  = document.getElementById('calGrid');
+    label.textContent = MONTHS[calMonth] + ' ' + calYear;
+    grid.innerHTML = '';
+
+    // Day name headers
+    DAYS.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-day-name';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+    // Empty cells
+    for (let i = 0; i < firstDay; i++) {
+      const el = document.createElement('div');
+      el.className = 'cal-day empty';
+      grid.appendChild(el);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const el = document.createElement('div');
+      const date = new Date(calYear, calMonth, d);
+      date.setHours(0,0,0,0);
+      el.className = 'cal-day';
+      el.textContent = d;
+
+      if (date < today) {
+        el.classList.add('past');
+      } else {
+        if (date.getTime() === today.getTime()) el.classList.add('today');
+        if (selectedDate && date.getTime() === selectedDate.getTime()) el.classList.add('selected');
+        el.addEventListener('click', () => selectDay(date));
+      }
+      grid.appendChild(el);
+    }
+
+    // Nav button states
+    const prevBtn = document.getElementById('calPrev');
+    const isCurrentMonth = calYear === today.getFullYear() && calMonth === today.getMonth();
+    prevBtn.style.opacity = isCurrentMonth ? '0.3' : '1';
+    prevBtn.style.pointerEvents = isCurrentMonth ? 'none' : 'auto';
+  }
+
+  function selectDay(date) {
+    selectedDate = date;
+    renderCalendar();
+    const btn = document.getElementById('calConfirm');
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+  }
+
+  document.getElementById('calPrev').addEventListener('click', () => {
+    calMonth--;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+  });
+
+  document.getElementById('calNext').addEventListener('click', () => {
+    calMonth++;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderCalendar();
+  });
+
+  document.getElementById('calConfirm').addEventListener('click', () => {
+    if (!selectedDate) return;
+    if (dateType === 'dinner') {
+      showConfirm();
+    } else {
+      showScreen('s4');
+    }
+  });
+
+  /* ─── Activity chosen ─── */
+  function chooseActivity(act) {
+    selectedActivity = act;
+    showConfirm();
+  }
+
+  /* ─── Confirm screen ─── */
+  function showConfirm() {
+    const dateStr = selectedDate
+      ? selectedDate.toLocaleDateString('en-ZA', { weekday:'long', day:'numeric', month:'long' })
+      : '';
+
+    let icon, title, msg;
+
+    if (dateType === 'dinner') {
+      icon  = '🍽️';
+      title = "It's a dinner date!";
+      msg   = `I can't wait to share a meal with you on <strong>${dateStr}</strong>. Dress up, it's going to be special. 💕`;
+    } else {
+      const actLabel = selectedActivity === 'bowling' ? 'bowling 🎳' : 'putt putt ⛳';
+      icon  = selectedActivity === 'bowling' ? '🎳' : '⛳';
+      title = "It's a date!";
+      msg   = `${actLabel} on <strong>${dateStr}</strong> — get ready to lose… or win 😄 Either way, I'm just happy it's with you. 💖`;
+    }
+
+    document.getElementById('confirmIcon').textContent  = icon;
+    document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmMsg').innerHTML     = msg;
+    showScreen('s5');
+  }
+
+  /* ─── Confetti ─── */
+  const COLORS = ['#e91e8c','#f48fb1','#ffb6c1','#ff69b4','#c2185b','#f8bbd0','#f06292','#ad1457','#ff1493'];
+  let pieces = [], animId;
+
+  function launchConfetti() {
+    canvas.style.display = 'block';
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    pieces = [];
+    for (let i = 0; i < 200; i++) {
+      pieces.push({
+        x: Math.random() * canvas.width,
+        y: -10 - Math.random() * 300,
+        r: 5 + Math.random() * 8,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        vx: (Math.random() - 0.5) * 5,
+        vy: 2 + Math.random() * 4,
+        rot: Math.random() * Math.PI * 2,
+        rotV: (Math.random() - 0.5) * 0.15,
+        shape: Math.random() < 0.4 ? 'heart' : Math.random() < 0.5 ? 'circle' : 'rect',
+        alpha: 1
+      });
+    }
+    cancelAnimationFrame(animId);
+    animateConfetti();
+  }
+
+  function drawHeart(c, x, y, s) {
+    c.beginPath();
+    c.moveTo(x, y + s * 0.35);
+    c.bezierCurveTo(x, y, x - s, y, x - s, y + s * 0.35);
+    c.bezierCurveTo(x - s, y + s * 0.7, x, y + s * 1.1, x, y + s * 1.3);
+    c.bezierCurveTo(x, y + s * 1.1, x + s, y + s * 0.7, x + s, y + s * 0.35);
+    c.bezierCurveTo(x + s, y, x, y, x, y + s * 0.35);
+    c.closePath();
+  }
+
+  function animateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    for (const p of pieces) {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.07; p.rot += p.rotV;
+      if (p.y > canvas.height - 60) p.alpha = Math.max(0, p.alpha - 0.025);
+      if (p.alpha > 0) alive = true;
+      ctx.save();
+      ctx.globalAlpha = p.alpha;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      if (p.shape === 'heart')       { drawHeart(ctx, 0, -p.r * 0.5, p.r * 0.7); ctx.fill(); }
+      else if (p.shape === 'circle') { ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2); ctx.fill(); }
+      else                           { ctx.fillRect(-p.r, -p.r * 0.5, p.r * 2, p.r); }
+      ctx.restore();
+    }
+    if (alive) animId = requestAnimationFrame(animateConfetti);
+    else canvas.style.display = 'none';
+  }
+</script>
+</body>
+</html>
