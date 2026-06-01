@@ -23,7 +23,6 @@
     position: relative;
   }
 
-  /* ── CARD ── */
   .card {
     background: rgba(255,255,255,0.88);
     backdrop-filter: blur(8px);
@@ -43,7 +42,6 @@
     to   { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  /* ── SCREENS ── */
   .screen { display: none; }
   .screen.active { display: block; animation: fadeIn 0.5s ease both; }
 
@@ -91,7 +89,6 @@
     line-height: 1.6;
   }
 
-  /* ── SHARED BUTTON STYLE ── */
   .btn {
     font-family: 'Lato', sans-serif;
     font-size: 1.1rem;
@@ -105,6 +102,8 @@
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(233,30,140,0.32);
     transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+    display: inline-block;
   }
 
   .btn:hover {
@@ -114,7 +113,19 @@
 
   .btn:active { transform: scale(0.98); }
 
-  /* ── BUTTON ROW ── */
+  .btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-whatsapp:hover {
+    box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+  }
+
   .buttons {
     display: flex;
     gap: 18px;
@@ -123,7 +134,6 @@
     position: relative;
   }
 
-  /* The No button is fixed/floating so it can flee anywhere */
   #noBtn {
     position: fixed;
     z-index: 999;
@@ -131,7 +141,6 @@
     transition: left 0.3s cubic-bezier(0.34,1.5,0.64,1), top 0.3s cubic-bezier(0.34,1.5,0.64,1);
   }
 
-  /* Invisible placeholder that holds the gap in the button row */
   .no-placeholder {
     display: inline-block;
     padding: 14px 38px;
@@ -141,7 +150,6 @@
     white-space: nowrap;
   }
 
-  /* ── DATE CHOICE CARDS ── */
   .choice-grid {
     display: flex;
     gap: 18px;
@@ -182,7 +190,6 @@
     line-height: 1.5;
   }
 
-  /* ── CALENDAR ── */
   .cal-nav {
     display: flex;
     align-items: center;
@@ -245,7 +252,6 @@
   .cal-day.today { background: #fce4ec; font-weight: 600; }
   .cal-day.selected { background: linear-gradient(135deg,#e91e8c,#f06292); color: #fff; font-weight: 600; }
 
-  /* ── ACTIVITY CHOICE ── */
   .activity-grid {
     display: flex;
     gap: 18px;
@@ -254,10 +260,8 @@
     margin-top: 10px;
   }
 
-  /* ── CONFIRM SCREEN ── */
   .confirm-icon { font-size: 3.5rem; margin-bottom: 16px; }
 
-  /* ── CONFETTI ── */
   #confetti-canvas {
     position: fixed;
     inset: 0;
@@ -269,11 +273,9 @@
 </head>
 <body>
 
-<!-- ════════════════════════════════
-     SCREEN 1 — The Question
-════════════════════════════════ -->
 <div class="card">
 
+  <!-- SCREEN 1: The Question -->
   <div id="s1" class="screen active">
     <div class="hearts-deco">🌸 💕 🌸</div>
     <h1>Will you be my girlfriend?</h1>
@@ -284,9 +286,7 @@
     </div>
   </div>
 
-  <!-- ════════════════════════════════
-       SCREEN 2 — Yay + Vibes
-  ════════════════════════════════ -->
+  <!-- SCREEN 2: Vibe Check -->
   <div id="s2" class="screen">
     <div class="hearts-deco">🎉 💗 🎉</div>
     <h2>You just made everything better!</h2>
@@ -305,9 +305,7 @@
     </div>
   </div>
 
-  <!-- ════════════════════════════════
-       SCREEN 3 — Calendar
-  ════════════════════════════════ -->
+  <!-- SCREEN 3: Calendar -->
   <div id="s3" class="screen">
     <h2 id="s3-title">Pick a date for dinner 🍽️</h2>
     <p class="sub" style="margin-bottom:20px;">What day works best for you?</p>
@@ -322,9 +320,7 @@
     </button>
   </div>
 
-  <!-- ════════════════════════════════
-       SCREEN 4 — Activity Choice (only if activity picked)
-  ════════════════════════════════ -->
+  <!-- SCREEN 4: Activity Choice -->
   <div id="s4" class="screen">
     <h2>What are we doing? 🎳</h2>
     <p class="sub">Pick your favourite and I'll make it happen 💪</p>
@@ -342,16 +338,20 @@
     </div>
   </div>
 
-  <!-- ════════════════════════════════
-       SCREEN 5 — All confirmed
-  ════════════════════════════════ -->
+  <!-- SCREEN 5: All Confirmed -->
   <div id="s5" class="screen">
     <div class="confirm-icon" id="confirmIcon">💖</div>
     <h2 id="confirmTitle">It's a date!</h2>
     <p class="sub" id="confirmMsg"></p>
+    <a id="waBtn" class="btn btn-whatsapp" href="#" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Send my answer 💌
+    </a>
   </div>
 
-</div><!-- end .card -->
+</div>
 
 <!-- Floating No button -->
 <button class="btn" id="noBtn">No 🙅‍♀️</button>
@@ -359,7 +359,6 @@
 <canvas id="confetti-canvas"></canvas>
 
 <script>
-  /* ─── State ─── */
   let dateType = '';
   let selectedActivity = '';
   let selectedDate = null;
@@ -370,14 +369,12 @@
   calYear  = today.getFullYear();
   calMonth = today.getMonth();
 
-  /* ─── Elements ─── */
-  const noBtn      = document.getElementById('noBtn');
-  const noPH       = document.getElementById('noPlaceholder');
-  const yesBtn     = document.getElementById('yesBtn');
-  const canvas     = document.getElementById('confetti-canvas');
-  const ctx        = canvas.getContext('2d');
+  const noBtn  = document.getElementById('noBtn');
+  const noPH   = document.getElementById('noPlaceholder');
+  const yesBtn = document.getElementById('yesBtn');
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx    = canvas.getContext('2d');
 
-  /* ─── Sync No button to placeholder ─── */
   function syncNo() {
     const r = noPH.getBoundingClientRect();
     noBtn.style.left  = r.left + 'px';
@@ -399,7 +396,6 @@
     }));
   });
 
-  /* ─── Flee logic ─── */
   function flee() {
     const margin = 20;
     const bw = noBtn.offsetWidth, bh = noBtn.offsetHeight;
@@ -420,20 +416,17 @@
   noBtn.addEventListener('mouseover', flee);
   noBtn.addEventListener('touchstart', e => { e.preventDefault(); flee(); }, { passive: false });
 
-  /* ─── Screen switching ─── */
   function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
 
-  /* ─── YES clicked ─── */
   yesBtn.addEventListener('click', () => {
     noBtn.style.display = 'none';
     launchConfetti();
     setTimeout(() => { showScreen('s2'); }, 1800);
   });
 
-  /* ─── Date type chosen ─── */
   function chooseDateType(type) {
     dateType = type;
     document.getElementById('s3-title').textContent =
@@ -442,18 +435,15 @@
     renderCalendar();
   }
 
-  /* ─── Calendar ─── */
   const MONTHS = ['January','February','March','April','May','June',
                   'July','August','September','October','November','December'];
   const DAYS   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
   function renderCalendar() {
-    const label = document.getElementById('calLabel');
-    const grid  = document.getElementById('calGrid');
-    label.textContent = MONTHS[calMonth] + ' ' + calYear;
+    document.getElementById('calLabel').textContent = MONTHS[calMonth] + ' ' + calYear;
+    const grid = document.getElementById('calGrid');
     grid.innerHTML = '';
 
-    // Day name headers
     DAYS.forEach(d => {
       const el = document.createElement('div');
       el.className = 'cal-day-name';
@@ -461,10 +451,9 @@
       grid.appendChild(el);
     });
 
-    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const firstDay    = new Date(calYear, calMonth, 1).getDay();
     const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
 
-    // Empty cells
     for (let i = 0; i < firstDay; i++) {
       const el = document.createElement('div');
       el.className = 'cal-day empty';
@@ -472,10 +461,10 @@
     }
 
     for (let d = 1; d <= daysInMonth; d++) {
-      const el = document.createElement('div');
+      const el   = document.createElement('div');
       const date = new Date(calYear, calMonth, d);
       date.setHours(0,0,0,0);
-      el.className = 'cal-day';
+      el.className   = 'cal-day';
       el.textContent = d;
 
       if (date < today) {
@@ -488,10 +477,9 @@
       grid.appendChild(el);
     }
 
-    // Nav button states
     const prevBtn = document.getElementById('calPrev');
     const isCurrentMonth = calYear === today.getFullYear() && calMonth === today.getMonth();
-    prevBtn.style.opacity = isCurrentMonth ? '0.3' : '1';
+    prevBtn.style.opacity       = isCurrentMonth ? '0.3' : '1';
     prevBtn.style.pointerEvents = isCurrentMonth ? 'none' : 'auto';
   }
 
@@ -499,7 +487,7 @@
     selectedDate = date;
     renderCalendar();
     const btn = document.getElementById('calConfirm');
-    btn.style.opacity = '1';
+    btn.style.opacity       = '1';
     btn.style.pointerEvents = 'auto';
   }
 
@@ -517,45 +505,46 @@
 
   document.getElementById('calConfirm').addEventListener('click', () => {
     if (!selectedDate) return;
-    if (dateType === 'dinner') {
-      showConfirm();
-    } else {
-      showScreen('s4');
-    }
+    if (dateType === 'dinner') showConfirm();
+    else showScreen('s4');
   });
 
-  /* ─── Activity chosen ─── */
   function chooseActivity(act) {
     selectedActivity = act;
     showConfirm();
   }
 
-  /* ─── Confirm screen ─── */
   function showConfirm() {
     const dateStr = selectedDate
       ? selectedDate.toLocaleDateString('en-ZA', { weekday:'long', day:'numeric', month:'long' })
       : '';
 
-    let icon, title, msg;
+    let icon, title, msg, waText;
 
     if (dateType === 'dinner') {
-      icon  = '🍽️';
-      title = "It's a dinner date!";
-      msg   = `I can't wait to share a meal with you on <strong>${dateStr}</strong>. Dress up, it's going to be special. 💕`;
+      icon   = '🍽️';
+      title  = "It's a dinner date!";
+      msg    = `I can't wait to share a meal with you on <strong>${dateStr}</strong>. Dress up, it's going to be special. 💕`;
+      waText = `I said YES 💖 I want a dinner date on ${dateStr}! Can't wait 🍽️`;
     } else {
       const actLabel = selectedActivity === 'bowling' ? 'bowling 🎳' : 'putt putt ⛳';
-      icon  = selectedActivity === 'bowling' ? '🎳' : '⛳';
-      title = "It's a date!";
-      msg   = `${actLabel} on <strong>${dateStr}</strong> — get ready to lose… or win 😄 Either way, I'm just happy it's with you. 💖`;
+      icon   = selectedActivity === 'bowling' ? '🎳' : '⛳';
+      title  = "It's a date!";
+      msg    = `${actLabel} on <strong>${dateStr}</strong> — get ready to lose… or win 😄 Either way, I'm just happy it's with you. 💖`;
+      waText = `I said YES 💖 I want a ${actLabel} date on ${dateStr}! Get ready 😄`;
     }
 
     document.getElementById('confirmIcon').textContent  = icon;
     document.getElementById('confirmTitle').textContent = title;
     document.getElementById('confirmMsg').innerHTML     = msg;
+
+    // Build WhatsApp link
+    const encoded = encodeURIComponent(waText);
+    document.getElementById('waBtn').href = `https://wa.me/27658861444?text=${encoded}`;
+
     showScreen('s5');
   }
 
-  /* ─── Confetti ─── */
   const COLORS = ['#e91e8c','#f48fb1','#ffb6c1','#ff69b4','#c2185b','#f8bbd0','#f06292','#ad1457','#ff1493'];
   let pieces = [], animId;
 
@@ -615,3 +604,4 @@
 </script>
 </body>
 </html>
+
